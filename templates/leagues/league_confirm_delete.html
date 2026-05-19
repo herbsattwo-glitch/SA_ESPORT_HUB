@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="xbox-card xbox-danger-card">
+        <div class="xbox-card-body text-center">
+          <i class="bi bi-exclamation-triangle-fill xbox-danger-icon mb-3"></i>
+          <h3 class="mb-3">Delete League</h3>
+          <p class="text-muted mb-4">
+            Are you sure you want to permanently delete
+            <strong class="text-white">{{ league.name }}</strong>?
+            This action cannot be undone and all match data will be lost.
+          </p>
+          <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center gap-3">
+              <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill me-2"></i>Yes, Delete
+              </button>
+              <a href="{% url 'league_detail' league.pk %}" class="btn xbox-btn-outline">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

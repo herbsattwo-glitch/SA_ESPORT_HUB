@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Player Header -->
+  <div class="xbox-player-header mb-5">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div class="xbox-avatar-xl">
+          {% if player.user.profile.avatar %}
+            <img src="{{ player.user.profile.avatar.url }}" class="xbox-avatar-img-xl" alt="avatar"/>
+          {% else %}
+            <i class="bi bi-person-circle"></i>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex flex-wrap gap-2 mb-2">
+          <span class="xbox-game-chip-lg">{{ player.get_primary_game_display }}</span>
+          <span class="xbox-tier-badge-lg xbox-tier-{{ player.skill_tier }}">
+            {{ player.get_skill_tier_display }}
+          </span>
+          {% if player.is_available_for_scouting %}
+            <span class="xbox-available-badge">
+              <i class="bi bi-eye-fill me-1"></i>Open to Scouting
+            </span>
+          {% endif %}
+          {% if player.looking_for_team %}
+            <span class="xbox-lfg-badge">
+              <i class="bi bi-people-fill me-1"></i>LFT
+            </span>
+          {% endif %}
+        </div>
+        <h1 class="xbox-profile-gamertag">
+          {% if player.user.profile %}
+            {{ player.user.profile.gamertag }}
+          {% else %}
+            {{ player.user.username }}
+          {% endif %}
+        </h1>
+        {% if player.user.profile.province %}
+        <p class="text-muted mb-0">
+          <i class="bi bi-geo-alt-fill me-1"></i>
+          {{ player.user.profile.get_province_display }}
+        </p>
+        {% endif %}
+      </div>
+      <div class="col-auto">
+        {% if user.is_authenticated and user != player.user %}
+          {% if not user_has_reported %}
+          <a href="{% url 'scout_report' player.pk %}" class="btn xbox-btn-primary">
+            <i class="bi bi-clipboard-fill me-2"></i>Scout Report
+          </a>
+          {% else %}
+          <button class="btn xbox-btn-outline" disabled>
+            <i class="bi bi-check-circle-fill me-2"></i>Report Submitted
+          </button>
+          {% endif %}
+        {% endif %}
+        {% if user == player.user %}
+        <a href="{% url 'player_update' player.pk %}" class="btn xbox-btn-outline">
+          <i class="bi bi-pencil-fill me-2"></i>Edit
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-5">
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value xbox-green">{{ player.ranking_points }}</div>
+        <div class="xbox-stat-label">Ranking Points</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value text-success">{{ player.wins }}</div>
+        <div class="xbox-stat-label">Wins</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value text-danger">{{ player.losses }}</div>
+        <div class="xbox-stat-label">Losses</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value">{{ player.win_rate }}%</div>
+        <div class="xbox-stat-label">Win Rate</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value text-warning">{{ player.tournament_wins }}</div>
+        <div class="xbox-stat-label">Tournament Wins</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value">{{ player.draws }}</div>
+        <div class="xbox-stat-label">Draws</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value">{{ player.total_matches }}</div>
+        <div class="xbox-stat-label">Total Matches</div>
+      </div>
+    </div>
+    {% if player.national_rank %}
+    <div class="col-6 col-md-3">
+      <div class="xbox-stat-card">
+        <div class="xbox-stat-value xbox-green">#{{ player.national_rank }}</div>
+        <div class="xbox-stat-label">National Rank</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if player.highlights_url %}
+  <div class="xbox-card mb-4">
+    <div class="xbox-card-body">
+      <h5 class="xbox-section-title mb-2">
+        <i class="bi bi-play-circle-fill xbox-green me-2"></i>Highlight Reel
+      </h5>
+      <a href="{{ player.highlights_url }}" target="_blank" class="btn xbox-btn-outline btn-sm">
+        <i class="bi bi-youtube me-2"></i>Watch Highlights
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Scouting Reports -->
+  <div class="xbox-card">
+    <div class="xbox-card-body">
+      <h5 class="xbox-section-title mb-4">
+        <i class="bi bi-clipboard-data-fill xbox-green me-2"></i>
+        Scouting Reports ({{ reports|length }})
+      </h5>
+
+      {% if reports %}
+      {% for report in reports %}
+      <div class="xbox-scout-report {% if not forloop.last %}mb-4 pb-4 xbox-report-divider{% endif %}">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <strong class="xbox-green">{{ report.scout.username }}</strong>
+            <small class="text-muted ms-2">{{ report.created_at|date:"d M Y" }}</small>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="xbox-rating-badge">{{ report.average_rating }}/10</span>
+            {% if report.is_recommended %}
+              <span class="xbox-recommend-badge">
+                <i class="bi bi-star-fill me-1"></i>Recommended
+              </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-6 col-md-3">
+            <div class="xbox-rating-item">
+              <small class="text-muted">Overall</small>
+              <div class="xbox-rating-bar">
+                <div class="xbox-rating-fill"
+                     style="width: {{ report.overall_rating|divisibleby:10 }}%">
+                </div>
+              </div>
+              <span>{{ report.overall_rating }}/10</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="xbox-rating-item">
+              <small class="text-muted">Mechanics</small>
+              <div class="xbox-rating-bar">
+                <div class="xbox-rating-fill"
+                     style="width: {{ report.mechanics_rating }}0%">
+                </div>
+              </div>
+              <span>{{ report.mechanics_rating }}/10</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="xbox-rating-item">
+              <small class="text-muted">Game Sense</small>
+              <div class="xbox-rating-bar">
+                <div class="xbox-rating-fill"
+                     style="width: {{ report.game_sense_rating }}0%">
+                </div>
+              </div>
+              <span>{{ report.game_sense_rating }}/10</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="xbox-rating-item">
+              <small class="text-muted">Consistency</small>
+              <div class="xbox-rating-bar">
+                <div class="xbox-rating-fill"
+                     style="width: {{ report.consistency_rating }}0%">
+                </div>
+              </div>
+              <span>{{ report.consistency_rating }}/10</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="mb-0">{{ report.notes }}</p>
+      </div>
+      {% endfor %}
+
+      {% else %}
+      <p class="text-muted mb-0">
+        No scouting reports yet.
+        {% if user.is_authenticated and user != player.user %}
+          <a href="{% url 'scout_report' player.pk %}" class="xbox-link">Submit the first one.</a>
+        {% endif %}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Profile Header -->
+  <div class="xbox-profile-header mb-5">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div class="xbox-avatar-lg">
+          {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" alt="avatar" class="xbox-avatar-img-lg" />
+          {% else %}
+            <i class="bi bi-person-circle"></i>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col">
+        <h1 class="xbox-profile-gamertag">{{ profile.gamertag }}</h1>
+        <p class="text-muted mb-1">
+          <i class="bi bi-person-fill me-1"></i>{{ user.username }}
+          &nbsp;|&nbsp;
+          <i class="bi bi-person-badge-fill me-1"></i>{{ profile.get_role_display }}
+          {% if profile.province %}
+            &nbsp;|&nbsp;
+            <i class="bi bi-geo-alt-fill me-1"></i>{{ profile.get_province_display }}
+          {% endif %}
+        </p>
+        {% if profile.bio %}
+          <p class="mt-2 mb-0">{{ profile.bio }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Form -->
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h4 class="xbox-section-title mb-4">
+            <i class="bi bi-pencil-square xbox-green me-2"></i>Edit Profile
+          </h4>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h6 class="xbox-subsection-title mb-3">Account Info</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="xbox-label">First Name</label>
+                {{ user_form.first_name }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Last Name</label>
+                {{ user_form.last_name }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Email</label>
+                {{ user_form.email }}
+              </div>
+            </div>
+
+            <h6 class="xbox-subsection-title mb-3">Esports Profile</h6>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="xbox-label">Gamertag</label>
+                {{ profile_form.gamertag }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Role</label>
+                {{ profile_form.role }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Province</label>
+                {{ profile_form.province }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Avatar</label>
+                {{ profile_form.avatar }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Bio</label>
+                {{ profile_form.bio }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Xbox Profile URL</label>
+                {{ profile_form.xbox_profile_url }}
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-3">
+              <button type="submit" class="btn xbox-btn-primary">
+                <i class="bi bi-save-fill me-2"></i>Save Changes
+              </button>
+              <a href="{% url 'home' %}" class="btn xbox-btn-outline">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <div class="xbox-card mb-3">
+        <div class="xbox-card-body">
+          <h6 class="xbox-subsection-title">Quick Links</h6>
+          <div class="d-grid gap-2 mt-3">
+            {% if user.player_profile %}
+            <a href="{% url 'player_detail' user.player_profile.pk %}"
+               class="btn xbox-btn-outline btn-sm">
+              <i class="bi bi-bar-chart-fill me-2"></i>My Player Stats
+            </a>
+            <a href="{% url 'player_update' user.player_profile.pk %}"
+               class="btn xbox-btn-outline btn-sm">
+              <i class="bi bi-pencil-fill me-2"></i>Edit Player Profile
+            </a>
+            {% else %}
+            <a href="{% url 'player_create' %}" class="btn xbox-btn-primary btn-sm">
+              <i class="bi bi-plus-circle-fill me-2"></i>Create Player Profile
+            </a>
+            {% endif %}
+            <a href="{% url 'league_create' %}" class="btn xbox-btn-outline btn-sm">
+              <i class="bi bi-trophy-fill me-2"></i>Organise a League
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h6 class="xbox-subsection-title">Member Since</h6>
+          <p class="xbox-green fw-bold mb-0">
+            {{ profile.created_at|date:"F Y" }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

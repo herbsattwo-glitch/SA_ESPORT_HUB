@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="xbox-section-title">
+      <i class="bi bi-bar-chart-fill xbox-green me-2"></i>Player Rankings
+    </h1>
+    {% if user.is_authenticated and not user.player_profile %}
+    <a href="{% url 'player_create' %}" class="btn xbox-btn-primary">
+      <i class="bi bi-plus-circle-fill me-2"></i>Create Profile
+    </a>
+    {% endif %}
+  </div>
+
+  <!-- Search -->
+  <div class="xbox-filter-bar mb-4">
+    <form method="get" class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="xbox-label">Search</label>
+        {{ form.query }}
+      </div>
+      <div class="col-md-2">
+        <label class="xbox-label">Game</label>
+        {{ form.game }}
+      </div>
+      <div class="col-md-2">
+        <label class="xbox-label">Tier</label>
+        {{ form.skill_tier }}
+      </div>
+      <div class="col-md-3">
+        <label class="xbox-label">&nbsp;</label>
+        <label class="xbox-check-wrapper xbox-filter-check">
+          {{ form.available_only }}
+          <span class="xbox-check-box">
+            <i class="bi bi-check2"></i>
+          </span>
+          <span class="xbox-check-label">Available for Scouting</span>
+        </label>
+      </div>
+      <div class="col-md-2">
+        <label class="xbox-label">&nbsp;</label>
+        <button type="submit" class="btn xbox-btn-primary w-100">
+          <i class="bi bi-search me-1"></i>Search
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {% if players %}
+  <div class="xbox-table-wrapper">
+    <table class="xbox-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Gamertag</th>
+          <th>Game</th>
+          <th>Tier</th>
+          <th>Points</th>
+          <th>W</th>
+          <th>L</th>
+          <th>Win %</th>
+          <th>Province</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for player in players %}
+        <tr class="xbox-table-row">
+          <td>
+            {% if forloop.counter == 1 %}<i class="bi bi-trophy-fill" style="color:#FFD700;"></i>
+            {% elif forloop.counter == 2 %}<i class="bi bi-trophy-fill" style="color:#C0C0C0;"></i>
+            {% elif forloop.counter == 3 %}<i class="bi bi-trophy-fill" style="color:#CD7F32;"></i>
+            {% else %}{{ forloop.counter }}{% endif %}
+          </td>
+          <td class="fw-bold">
+            {% if player.user.profile %}{{ player.user.profile.gamertag }}
+            {% else %}{{ player.user.username }}{% endif %}
+          </td>
+          <td><span class="xbox-game-chip-sm">{{ player.get_primary_game_display }}</span></td>
+          <td><span class="xbox-tier-{{ player.skill_tier }}">{{ player.get_skill_tier_display }}</span></td>
+          <td class="xbox-green fw-bold">{{ player.ranking_points }}</td>
+          <td class="text-success">{{ player.wins }}</td>
+          <td class="text-danger">{{ player.losses }}</td>
+          <td>{{ player.win_rate }}%</td>
+          <td>
+            {% if player.user.profile.province %}{{ player.user.profile.get_province_display }}
+            {% else %}—{% endif %}
+          </td>
+          <td><a href="{% url 'player_detail' player.pk %}" class="btn xbox-btn-outline btn-sm">View</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="xbox-empty-state">
+    <i class="bi bi-controller xbox-empty-icon"></i>
+    <h4>No players found</h4>
+    <p class="text-muted">Adjust filters or create the first player profile.</p>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

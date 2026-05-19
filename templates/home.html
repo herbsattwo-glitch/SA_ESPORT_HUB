@@ -1,0 +1,505 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | SA Esports Hub{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════════ -->
+<section class="xbox-hero">
+  <div class="container">
+    <div class="row align-items-center min-vh-60 py-5">
+
+      <!-- Left: Text content -->
+      <div class="col-lg-7">
+        <div class="xbox-hero-badge mb-4">
+          <span style="width:8px;height:8px;background:var(--xbox-green);border-radius:50%;
+                       display:inline-block;margin-right:8px;animation:pulse 2s infinite;
+                       box-shadow:0 0 10px rgba(16,124,16,0.8);"></span>
+          LIVE · SA ESPORTS NETWORK
+        </div>
+
+        <h1 class="xbox-hero-title">
+          South Africa's<br />
+          <span class="xbox-green">Esports Hub</span>
+        </h1>
+
+        <p class="xbox-hero-subtitle">
+          Unified league management, player scouting, and national rankings
+          for FIFA, Call of Duty, Tekken 8, Street Fighter 6, Killer Instinct &amp; Forza Horizon 6.
+          Built for the South African competitive gaming community.
+        </p>
+
+        <!-- CTAs -->
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          {% if user.is_authenticated %}
+            <a href="{% url 'league_list' %}" class="btn xbox-btn-primary btn-lg">
+              <i class="bi bi-trophy-fill me-2"></i>Browse Leagues
+            </a>
+            <a href="{% url 'player_list' %}" class="btn xbox-btn-outline btn-lg">
+              <i class="bi bi-bar-chart-fill me-2"></i>Player Rankings
+            </a>
+          {% else %}
+            <a href="{% url 'register' %}" class="btn xbox-btn-primary btn-lg">
+              <i class="bi bi-controller me-2"></i>Join Now — It's Free
+            </a>
+            <a href="{% url 'login' %}" class="btn xbox-btn-outline btn-lg">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+            </a>
+          {% endif %}
+        </div>
+
+        <!-- Supported games row -->
+        <div class="d-flex flex-wrap gap-2 mt-5">
+          <span class="xbox-game-badge-lg">🎮 EA FC</span>
+          <span class="xbox-game-badge-lg">💥 Call of Duty</span>
+          <span class="xbox-game-badge-lg">🥊 Tekken 8</span>
+          <span class="xbox-game-badge-lg">⚡ Street Fighter 6</span>
+          <span class="xbox-game-badge-lg">🗡️ Killer Instinct</span>
+          <span class="xbox-game-badge-lg">🚗 Forza Horizon 6</span>
+        </div>
+      </div>
+
+      <!-- Right: Animated SVG -->
+      <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+        <div class="xbox-hero-graphic">
+          <svg viewBox="0 0 300 300" width="320" height="320">
+            <defs>
+              <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#107C10;stop-opacity:0.4"/>
+                <stop offset="100%" style="stop-color:#107C10;stop-opacity:0"/>
+              </radialGradient>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#107C10;stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#13A10E;stop-opacity:0.4"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Outer glow -->
+            <circle cx="150" cy="150" r="148" fill="url(#glowGrad)"/>
+
+            <!-- Rotating dashed rings -->
+            <circle cx="150" cy="150" r="135" fill="none" stroke="url(#ringGrad)"
+                    stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6">
+              <animateTransform attributeName="transform" type="rotate"
+                                from="0 150 150" to="360 150 150" dur="40s" repeatCount="indefinite"/>
+            </circle>
+
+            <circle cx="150" cy="150" r="110" fill="none" stroke="#107C10"
+                    stroke-width="1" stroke-dasharray="3,8" opacity="0.4">
+              <animateTransform attributeName="transform" type="rotate"
+                                from="360 150 150" to="0 150 150" dur="30s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Inner rings -->
+            <circle cx="150" cy="150" r="85" fill="#107C10" opacity="0.15"/>
+            <circle cx="150" cy="150" r="65" fill="#107C10" opacity="0.25"/>
+
+            <!-- Large X -->
+            <text x="150" y="178" font-size="90" font-weight="bold" text-anchor="middle"
+                  fill="#107C10" font-family="Arial" opacity="0.95"
+                  style="filter:drop-shadow(0 0 20px rgba(16,124,16,0.6));">X</text>
+
+            <!-- Orbiting dots -->
+            <circle cx="150" cy="20" r="6" fill="#107C10">
+              <animateTransform attributeName="transform" type="rotate"
+                                from="0 150 150" to="360 150 150" dur="15s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="280" cy="150" r="6" fill="#107C10">
+              <animateTransform attributeName="transform" type="rotate"
+                                from="0 150 150" to="360 150 150" dur="20s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="150" cy="280" r="6" fill="#107C10">
+              <animateTransform attributeName="transform" type="rotate"
+                                from="0 150 150" to="360 150 150" dur="25s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="20" cy="150" r="6" fill="#107C10">
+              <animateTransform attributeName="transform" type="rotate"
+                                from="0 150 150" to="360 150 150" dur="18s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Small white particles -->
+            <circle cx="248" cy="52" r="3" fill="#ffffff" opacity="0.6"/>
+            <circle cx="248" cy="248" r="3" fill="#ffffff" opacity="0.6"/>
+            <circle cx="52" cy="248" r="3" fill="#ffffff" opacity="0.6"/>
+            <circle cx="52" cy="52" r="3" fill="#ffffff" opacity="0.6"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     STATS BAR
+═══════════════════════════════════════════════ -->
+<section class="xbox-stats-bar py-3">
+  <div class="container">
+    <div class="row text-center g-2">
+      <div class="col-6 col-md-3">
+        <div class="xbox-stat-item">
+          <i class="bi bi-trophy-fill xbox-green me-2"></i>
+          <span class="fw-bold">Active Leagues</span>
+          <span class="xbox-stat-num">{{ featured_leagues.count }}</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="xbox-stat-item">
+          <i class="bi bi-controller xbox-green me-2"></i>
+          <span class="fw-bold">Ranked Players</span>
+          <span class="xbox-stat-num">{{ top_players.count }}+</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="xbox-stat-item">
+          <i class="bi bi-globe xbox-green me-2"></i>
+          <span class="fw-bold">Provinces</span>
+          <span class="xbox-stat-num">9</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="xbox-stat-item">
+          <i class="bi bi-joystick xbox-green me-2"></i>
+          <span class="fw-bold">Games Supported</span>
+          <span class="xbox-stat-num">6</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FEATURED LEAGUES
+═══════════════════════════════════════════════ -->
+<section class="container my-5 py-3">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h2 class="xbox-section-title">
+      <i class="bi bi-trophy-fill xbox-green me-2"></i>Featured Leagues
+    </h2>
+    <a href="{% url 'league_list' %}" class="btn xbox-btn-outline btn-sm">
+      View All <i class="bi bi-arrow-right ms-2"></i>
+    </a>
+  </div>
+
+  {% if featured_leagues %}
+  <div class="row g-4">
+    {% for league in featured_leagues %}
+    <div class="col-md-6 col-lg-3">
+      <div class="xbox-card h-100">
+
+        {% if league.banner %}
+          <img src="{{ league.banner.url }}" class="xbox-card-img" alt="{{ league.name }}">
+        {% else %}
+          <div class="xbox-card-placeholder">
+            <i class="bi bi-trophy-fill"></i>
+            <span>{{ league.get_game_display }}</span>
+          </div>
+        {% endif %}
+
+        <div class="xbox-card-body">
+          <span class="xbox-game-chip mb-2 align-self-start">{{ league.get_game_display }}</span>
+          <h5 class="xbox-card-title">{{ league.name }}</h5>
+          <p class="xbox-card-text">{{ league.description|truncatewords:12 }}</p>
+          <div class="d-flex justify-content-between align-items-center mt-auto pt-2">
+            <span class="xbox-status-badge xbox-status-{{ league.status }}">
+              {{ league.get_status_display }}
+            </span>
+            <small class="text-muted">
+              <i class="bi bi-people-fill me-1"></i>{{ league.participant_count }}/{{ league.max_participants }}
+            </small>
+          </div>
+        </div>
+
+        <div class="xbox-card-footer">
+          <a href="{% url 'league_detail' league.pk %}" class="btn xbox-btn-primary btn-sm w-100">
+            View League <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="xbox-empty-state">
+    <i class="bi bi-trophy xbox-empty-icon"></i>
+    <h4 class="mt-3 mb-2" style="font-family:'Rajdhani', sans-serif;">No Active Leagues Yet</h4>
+    <p class="text-muted">Be the first to create a league and start competing.</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'league_create' %}" class="btn xbox-btn-primary mt-3">
+      <i class="bi bi-plus-circle-fill me-2"></i>Create First League
+    </a>
+    {% else %}
+    <a href="{% url 'register' %}" class="btn xbox-btn-primary mt-3">
+      <i class="bi bi-person-plus-fill me-2"></i>Join to Get Started
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TOP PLAYERS SECTION
+═══════════════════════════════════════════════ -->
+<section class="xbox-dark-section py-5 my-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h2 class="xbox-section-title">
+        <i class="bi bi-bar-chart-fill xbox-green me-2"></i>Top Ranked Players
+      </h2>
+      <a href="{% url 'player_list' %}" class="btn xbox-btn-outline btn-sm">
+        Full Rankings <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+
+    {% if top_players %}
+    <div class="row g-3">
+      {% for player in top_players %}
+     <div class="col-12">
+        <div class="xbox-player-card">
+
+          <!-- Rank -->
+          <div class="xbox-rank-badge">
+            {% if forloop.counter == 1 %}
+              <i class="bi bi-trophy-fill" style="color:#FFD700;font-size:1.4rem;
+                 filter:drop-shadow(0 0 8px rgba(255,215,0,0.7));"></i>
+            {% elif forloop.counter == 2 %}
+              <i class="bi bi-trophy-fill" style="color:#C0C0C0;font-size:1.3rem;"></i>
+            {% elif forloop.counter == 3 %}
+              <i class="bi bi-trophy-fill" style="color:#CD7F32;font-size:1.25rem;"></i>
+            {% else %}
+              #{{ forloop.counter }}
+            {% endif %}
+          </div>
+
+          <!-- Player info -->
+          <div class="xbox-player-info">
+            <div class="xbox-player-avatar">
+              {% if player.user.profile.avatar %}
+                <img src="{{ player.user.profile.avatar.url }}" alt="avatar" />
+              {% else %}
+                <i class="bi bi-person-circle"></i>
+              {% endif %}
+            </div>
+            <div>
+              <div class="xbox-player-name">
+                {% if player.user.profile %}
+                  {{ player.user.profile.gamertag }}
+                {% else %}
+                  {{ player.user.username }}
+                {% endif %}
+              </div>
+              <div class="xbox-player-meta">
+                <span class="xbox-game-chip-sm">{{ player.get_primary_game_display }}</span>
+                <span class="xbox-tier-{{ player.skill_tier }}" style="font-size:0.72rem;font-weight:700;">
+                  {{ player.get_skill_tier_display }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats + Button -->
+          <div class="xbox-player-stats">
+            <div class="xbox-mini-stat">
+              <span class="xbox-mini-stat-val xbox-green">{{ player.ranking_points }}</span>
+              <span class="xbox-mini-stat-lbl">PTS</span>
+            </div>
+            <div class="xbox-mini-stat">
+              <span class="xbox-mini-stat-val">{{ player.win_rate }}%</span>
+              <span class="xbox-mini-stat-lbl">W/R</span>
+            </div>
+            <a href="{% url 'player_detail' player.pk %}"
+               class="btn xbox-btn-outline btn-sm"
+               title="View profile">
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="xbox-empty-state">
+      <i class="bi bi-controller xbox-empty-icon"></i>
+      <h4 class="mt-3 mb-2" style="font-family:'Rajdhani', sans-serif;">No Players Ranked Yet</h4>
+      <p class="text-muted">Be the first competitor to enter the rankings.</p>
+      {% if user.is_authenticated %}
+      <a href="{% url 'player_create' %}" class="btn xbox-btn-primary mt-3">
+        <i class="bi bi-plus-circle-fill me-2"></i>Create Player Profile
+      </a>
+      {% else %}
+      <a href="{% url 'register' %}" class="btn xbox-btn-primary mt-3">
+        <i class="bi bi-person-plus-fill me-2"></i>Join the Hub
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FEATURES SECTION
+═══════════════════════════════════════════════ -->
+<section class="container my-5 py-3">
+  <div class="text-center mb-5">
+    <h2 class="xbox-page-title" style="display:flex;justify-content:center;">
+      Why <span class="xbox-green ms-2">SA Esports Hub</span>?
+    </h2>
+    <p class="text-muted mt-2">Everything competitive South African gamers need — in one place.</p>
+  </div>
+
+  <div class="row g-4">
+
+    <div class="col-md-6 col-lg-4">
+      <div class="xbox-card h-100">
+        <div class="xbox-card-body text-center">
+          <div style="width:64px;height:64px;border-radius:14px;
+                      background:rgba(16,124,16,0.15);border:1px solid rgba(16,124,16,0.3);
+                      color:var(--xbox-green);display:flex;align-items:center;justify-content:center;
+                      font-size:1.8rem;margin:0 auto 1rem;
+                      box-shadow:0 0 24px rgba(16,124,16,0.2);">
+            <i class="bi bi-trophy-fill"></i>
+          </div>
+          <h5 class="xbox-card-title">League Management</h5>
+          <p class="xbox-card-text">
+            Organize tournaments with multiple formats — single/double elimination,
+            round robin, Swiss system, and group stage playoffs.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="xbox-card h-100">
+        <div class="xbox-card-body text-center">
+          <div style="width:64px;height:64px;border-radius:14px;
+                      background:rgba(16,124,16,0.15);border:1px solid rgba(16,124,16,0.3);
+                      color:var(--xbox-green);display:flex;align-items:center;justify-content:center;
+                      font-size:1.8rem;margin:0 auto 1rem;
+                      box-shadow:0 0 24px rgba(16,124,16,0.2);">
+            <i class="bi bi-bar-chart-fill"></i>
+          </div>
+          <h5 class="xbox-card-title">National Rankings</h5>
+          <p class="xbox-card-text">
+            Live leaderboard sorted by points, with skill tiers from Bronze to Grand Master.
+            Filter by game and province.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="xbox-card h-100">
+        <div class="xbox-card-body text-center">
+          <div style="width:64px;height:64px;border-radius:14px;
+                      background:rgba(16,124,16,0.15);border:1px solid rgba(16,124,16,0.3);
+                      color:var(--xbox-green);display:flex;align-items:center;justify-content:center;
+                      font-size:1.8rem;margin:0 auto 1rem;
+                      box-shadow:0 0 24px rgba(16,124,16,0.2);">
+            <i class="bi bi-clipboard-data-fill"></i>
+          </div>
+          <h5 class="xbox-card-title">Scout Reports</h5>
+          <p class="xbox-card-text">
+            Structured player evaluations across four dimensions: overall,
+            mechanics, game sense, and consistency.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="xbox-card h-100">
+        <div class="xbox-card-body text-center">
+          <div style="width:64px;height:64px;border-radius:14px;
+                      background:rgba(16,124,16,0.15);border:1px solid rgba(16,124,16,0.3);
+                      color:var(--xbox-green);display:flex;align-items:center;justify-content:center;
+                      font-size:1.8rem;margin:0 auto 1rem;
+                      box-shadow:0 0 24px rgba(16,124,16,0.2);">
+            <i class="bi bi-geo-alt-fill"></i>
+          </div>
+          <h5 class="xbox-card-title">Province Coverage</h5>
+          <p class="xbox-card-text">
+            Connect with players across all nine South African provinces.
+            From Gauteng to the Northern Cape.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="xbox-card h-100">
+        <div class="xbox-card-body text-center">
+          <div style="width:64px;height:64px;border-radius:14px;
+                      background:rgba(16,124,16,0.15);border:1px solid rgba(16,124,16,0.3);
+                      color:var(--xbox-green);display:flex;align-items:center;justify-content:center;
+                      font-size:1.8rem;margin:0 auto 1rem;
+                      box-shadow:0 0 24px rgba(16,124,16,0.2);">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h5 class="xbox-card-title">Looking for Team</h5>
+          <p class="xbox-card-text">
+            Mark yourself as LFT and let coaches and team captains discover
+            you through the scouting system.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="xbox-card h-100">
+        <div class="xbox-card-body text-center">
+          <div style="width:64px;height:64px;border-radius:14px;
+                      background:rgba(16,124,16,0.15);border:1px solid rgba(16,124,16,0.3);
+                      color:var(--xbox-green);display:flex;align-items:center;justify-content:center;
+                      font-size:1.8rem;margin:0 auto 1rem;
+                      box-shadow:0 0 24px rgba(16,124,16,0.2);">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h5 class="xbox-card-title">Verified Profiles</h5>
+          <p class="xbox-card-text">
+            Every account links to a unique Xbox Gamertag.
+            Build a permanent competitive resume.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CALL TO ACTION
+═══════════════════════════════════════════════ -->
+{% if not user.is_authenticated %}
+<section class="container my-5 py-3">
+  <div class="xbox-card" style="background:linear-gradient(135deg, rgba(16,124,16,0.15), rgba(15,15,15,0.7));">
+    <div class="xbox-card-body p-5 text-center">
+      <h2 class="xbox-page-title mb-3">Ready to <span class="xbox-green">Compete</span>?</h2>
+      <p class="text-muted mb-4" style="font-size:1.05rem;max-width:600px;margin:0 auto;">
+        Join the fastest growing esports community in South Africa.
+        Create your profile in under a minute.
+      </p>
+      <div class="d-flex justify-content-center flex-wrap gap-3">
+        <a href="{% url 'register' %}" class="btn xbox-btn-primary btn-lg">
+          <i class="bi bi-rocket-takeoff-fill me-2"></i>Get Started Free
+        </a>
+        <a href="{% url 'login' %}" class="btn xbox-btn-outline btn-lg">
+          <i class="bi bi-box-arrow-in-right me-2"></i>I Have an Account
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.3); }
+}
+</style>
+
+{% endblock %}

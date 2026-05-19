@@ -1,0 +1,54 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block login_content %}
+<div class="login-card">
+  <div class="login-card-header">
+    <svg width="56" height="56" viewBox="0 0 100 100" style="margin-bottom: 12px;">
+      <circle cx="50" cy="50" r="48" fill="#107C10" stroke="#fff" stroke-width="2"/>
+      <text x="50" y="62" font-size="50" font-weight="bold" text-anchor="middle" fill="#fff" font-family="Arial">X</text>
+    </svg>
+    <h2 style="font-size: 1.4rem; font-weight: 800; margin: 0 0 4px;">SA Esports Admin</h2>
+    <p style="color: var(--xbox-muted); font-size: 0.85rem; margin: 0;">Sign in to access the command center</p>
+  </div>
+
+  <div class="login-card-body">
+    {% if form.errors and not form.non_field_errors %}
+      <div class="errornote">
+        Please correct the errors below.
+      </div>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+        <div class="errornote">{{ error }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" action="{{ app_path }}">
+      {% csrf_token %}
+
+      <div class="form-row" style="border: none; padding: 0 0 16px;">
+        <label for="id_username">
+          <i class="bi bi-person-fill me-1"></i> Username
+        </label>
+        {{ form.username }}
+      </div>
+
+      <div class="form-row" style="border: none; padding: 0 0 20px;">
+        <label for="id_password">
+          <i class="bi bi-lock-fill me-1"></i> Password
+        </label>
+        {{ form.password }}
+        <input type="hidden" name="next" value="{{ next }}">
+      </div>
+
+      <button type="submit" class="btn-xbox btn-xbox-primary" style="width: 100%; justify-content: center; padding: 12px;">
+        <i class="bi bi-box-arrow-in-right"></i> Sign In
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

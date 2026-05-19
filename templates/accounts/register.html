@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="xbox-auth-page">
+  <div class="container">
+    <div class="row justify-content-center py-5">
+      <div class="col-md-7 col-lg-6">
+
+        <div class="xbox-auth-card">
+          <div class="xbox-auth-header">
+            <svg width="48" height="48" viewBox="0 0 100 100" class="mb-3">
+              <circle cx="50" cy="50" r="48" fill="#107C10"/>
+              <text x="50" y="62" font-size="50" font-weight="bold"
+                    text-anchor="middle" fill="#ffffff" font-family="Arial">X</text>
+            </svg>
+            <h2 class="xbox-auth-title">Join SA Esports</h2>
+            <p class="xbox-auth-subtitle">Create your account and enter the arena</p>
+          </div>
+
+          <div class="xbox-auth-body">
+            <form method="post" action="{% url 'register' %}">
+              {% csrf_token %}
+
+              <div class="row g-3">
+                <!-- Username -->
+                <div class="col-12">
+                  <label class="xbox-label">
+                    <i class="bi bi-at me-1"></i>Username
+                  </label>
+                  {{ form.username }}
+                  {% if form.username.errors %}
+                    <div class="xbox-field-error">{{ form.username.errors.0 }}</div>
+                  {% endif %}
+                </div>
+
+                <!-- Gamertag -->
+                <div class="col-12">
+                  <label class="xbox-label">
+                    <i class="bi bi-controller me-1"></i>Xbox Gamertag
+                  </label>
+                  {{ form.gamertag }}
+                  {% if form.gamertag.errors %}
+                    <div class="xbox-field-error">{{ form.gamertag.errors.0 }}</div>
+                  {% endif %}
+                </div>
+
+                <!-- Email -->
+                <div class="col-12">
+                  <label class="xbox-label">
+                    <i class="bi bi-envelope-fill me-1"></i>Email Address
+                  </label>
+                  {{ form.email }}
+                  {% if form.email.errors %}
+                    <div class="xbox-field-error">{{ form.email.errors.0 }}</div>
+                  {% endif %}
+                </div>
+
+                <!-- Role & Province -->
+                <div class="col-md-6">
+                  <label class="xbox-label">
+                    <i class="bi bi-person-badge-fill me-1"></i>Role
+                  </label>
+                  {{ form.role }}
+                  {% if form.role.errors %}
+                    <div class="xbox-field-error">{{ form.role.errors.0 }}</div>
+                  {% endif %}
+                </div>
+
+                <div class="col-md-6">
+                  <label class="xbox-label">
+                    <i class="bi bi-geo-alt-fill me-1"></i>Province
+                  </label>
+                  {{ form.province }}
+                </div>
+
+                <!-- Passwords -->
+                <div class="col-md-6">
+                  <label class="xbox-label">
+                    <i class="bi bi-lock-fill me-1"></i>Password
+                  </label>
+                  {{ form.password1 }}
+                  {% if form.password1.errors %}
+                    <div class="xbox-field-error">{{ form.password1.errors.0 }}</div>
+                  {% endif %}
+                </div>
+
+                <div class="col-md-6">
+                  <label class="xbox-label">
+                    <i class="bi bi-lock-fill me-1"></i>Confirm Password
+                  </label>
+                  {{ form.password2 }}
+                  {% if form.password2.errors %}
+                    <div class="xbox-field-error">{{ form.password2.errors.0 }}</div>
+                  {% endif %}
+                </div>
+              </div>
+
+              {% if form.non_field_errors %}
+              <div class="xbox-form-error my-3">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ form.non_field_errors.0 }}
+              </div>
+              {% endif %}
+
+              <button type="submit" class="btn xbox-btn-primary w-100 btn-lg mt-4 mb-3">
+                <i class="bi bi-person-plus-fill me-2"></i>Create Account
+              </button>
+            </form>
+
+            <div class="text-center">
+              <p class="text-muted mb-0">
+                Already have an account?
+                <a href="{% url 'login' %}" class="xbox-link">Sign in</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

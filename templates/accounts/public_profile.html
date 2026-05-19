@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Profile Header -->
+  <div class="xbox-profile-header mb-5">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div class="xbox-avatar-xl">
+          {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}"
+                 class="xbox-avatar-img-xl" alt="avatar"/>
+          {% else %}
+            <i class="bi bi-person-circle"></i>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col">
+        <h1 class="xbox-profile-gamertag">{{ profile.gamertag }}</h1>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <span class="xbox-game-chip">
+            <i class="bi bi-person-badge-fill me-1"></i>
+            {{ profile.get_role_display }}
+          </span>
+          {% if profile.province %}
+          <span class="xbox-game-chip">
+            <i class="bi bi-geo-alt-fill me-1"></i>
+            {{ profile.get_province_display }}
+          </span>
+          {% endif %}
+        </div>
+        {% if profile.bio %}
+          <p class="mt-3 mb-0 text-muted">{{ profile.bio }}</p>
+        {% endif %}
+        {% if profile.xbox_profile_url %}
+          <a href="{{ profile.xbox_profile_url }}" target="_blank"
+             class="btn xbox-btn-outline btn-sm mt-3">
+            <i class="bi bi-xbox me-2"></i>Xbox Profile
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Action buttons if viewing own profile -->
+      {% if user == viewed_user %}
+      <div class="col-auto">
+        <a href="{% url 'profile' %}" class="btn xbox-btn-primary">
+          <i class="bi bi-pencil-fill me-2"></i>Edit Profile
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Player Stats if they have a profile -->
+    {% if viewed_user.player_profile %}
+    <div class="col-lg-8">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h5 class="xbox-section-title mb-4">
+            <i class="bi bi-bar-chart-fill xbox-green me-2"></i>
+            Competitive Stats
+          </h5>
+
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+              <div class="xbox-stat-card">
+                <span class="xbox-stat-value xbox-green">
+                  {{ viewed_user.player_profile.ranking_points }}
+                </span>
+                <div class="xbox-stat-label">Points</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="xbox-stat-card">
+                <span class="xbox-stat-value text-success">
+                  {{ viewed_user.player_profile.wins }}
+                </span>
+                <div class="xbox-stat-label">Wins</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="xbox-stat-card">
+                <span class="xbox-stat-value text-danger">
+                  {{ viewed_user.player_profile.losses }}
+                </span>
+                <div class="xbox-stat-label">Losses</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="xbox-stat-card">
+                <span class="xbox-stat-value">
+                  {{ viewed_user.player_profile.win_rate }}%
+                </span>
+                <div class="xbox-stat-label">Win Rate</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-3">
+            <span class="xbox-game-chip-lg">
+              {{ viewed_user.player_profile.get_primary_game_display }}
+            </span>
+            <span class="xbox-tier-badge-lg
+              xbox-tier-{{ viewed_user.player_profile.skill_tier }}">
+              {{ viewed_user.player_profile.get_skill_tier_display }}
+            </span>
+          </div>
+
+          <div class="mt-3">
+            <a href="{% url 'player_detail' viewed_user.player_profile.pk %}"
+               class="btn xbox-btn-outline btn-sm">
+              <i class="bi bi-arrow-right-circle me-2"></i>Full Player Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Info Sidebar -->
+    <div class="col-lg-4">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h6 class="xbox-subsection-title mb-3">Member Info</h6>
+          <div class="xbox-info-row">
+            <i class="bi bi-calendar-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">Joined</small>
+              <strong>{{ profile.created_at|date:"F Y" }}</strong>
+            </div>
+          </div>
+          <div class="xbox-info-row">
+            <i class="bi bi-person-badge-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">Role</small>
+              <strong>{{ profile.get_role_display }}</strong>
+            </div>
+          </div>
+          {% if profile.province %}
+          <div class="xbox-info-row">
+            <i class="bi bi-geo-alt-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">Province</small>
+              <strong>{{ profile.get_province_display }}</strong>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

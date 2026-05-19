@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h2 class="xbox-section-title mb-1">
+            <i class="bi bi-clipboard-fill xbox-green me-2"></i>Scout Report
+          </h2>
+          <p class="text-muted mb-4">
+            Evaluating:
+            <strong class="text-white">
+              {% if player.user.profile %}{{ player.user.profile.gamertag }}
+              {% else %}{{ player.user.username }}{% endif %}
+            </strong>
+            — {{ player.get_primary_game_display }}
+          </p>
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="xbox-label">Overall Rating</label>
+                {{ form.overall_rating }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Mechanics</label>
+                {{ form.mechanics_rating }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Game Sense</label>
+                {{ form.game_sense_rating }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Consistency</label>
+                {{ form.consistency_rating }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Notes</label>
+                {{ form.notes }}
+              </div>
+              <div class="col-12 d-flex align-items-center gap-2">
+                {{ form.is_recommended }}
+                <label class="xbox-label mb-0">Recommend this player</label>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-3">
+              <button type="submit" class="btn xbox-btn-primary">
+                <i class="bi bi-send-fill me-2"></i>Submit Report
+              </button>
+              <a href="{% url 'player_detail' player.pk %}" class="btn xbox-btn-outline">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

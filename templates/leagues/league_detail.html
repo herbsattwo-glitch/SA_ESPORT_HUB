@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- League Header -->
+  <div class="xbox-league-header mb-5">
+    {% if league.banner %}
+      <img src="{{ league.banner.url }}" class="xbox-league-banner" alt="{{ league.name }}">
+    {% endif %}
+
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="xbox-game-chip-lg">{{ league.get_game_display }}</span>
+          <span class="xbox-status-badge-lg xbox-status-{{ league.status }}">
+            {{ league.get_status_display }}
+          </span>
+          <span class="xbox-format-badge">{{ league.get_format_display }}</span>
+        </div>
+        <h1 class="xbox-page-title">{{ league.name }}</h1>
+        <p class="text-muted">
+          Organised by
+          <a href="{% url 'public_profile' league.organizer.username %}" class="xbox-link">
+            {% if league.organizer.profile %}
+              {{ league.organizer.profile.gamertag }}
+            {% else %}
+              {{ league.organizer.username }}
+            {% endif %}
+          </a>
+        </p>
+        <p>{{ league.description }}</p>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="xbox-league-info-card">
+          <div class="xbox-info-row">
+            <i class="bi bi-calendar-event-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">Start Date</small>
+              <strong>{{ league.start_date|date:"d F Y" }}</strong>
+            </div>
+          </div>
+          {% if league.end_date %}
+          <div class="xbox-info-row">
+            <i class="bi bi-calendar-check-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">End Date</small>
+              <strong>{{ league.end_date|date:"d F Y" }}</strong>
+            </div>
+          </div>
+          {% endif %}
+          <div class="xbox-info-row">
+            <i class="bi bi-people-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">Participants</small>
+              <strong>{{ league.participant_count }} / {{ league.max_participants }}</strong>
+            </div>
+          </div>
+          {% if league.prize_pool > 0 %}
+          <div class="xbox-info-row">
+            <i class="bi bi-award-fill xbox-green"></i>
+            <div>
+              <small class="text-muted d-block">Prize Pool</small>
+              <strong class="xbox-green">R{{ league.prize_pool }}</strong>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Actions -->
+          <div class="mt-3 d-grid gap-2">
+            {% if user.is_authenticated %}
+              {% if user_registered %}
+                <button class="btn xbox-btn-outline btn-sm" disabled>
+                  <i class="bi bi-check-circle-fill me-2"></i>Registered
+                </button>
+              {% elif league.status == 'upcoming' and league.spots_remaining > 0 %}
+                <form method="post" action="{% url 'league_register' league.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn xbox-btn-primary btn-sm w-100">
+                    <i class="bi bi-person-plus-fill me-2"></i>Register
+                  </button>
+                </form>
+              {% endif %}
+
+              {% if user == league.organizer or user.is_staff %}
+              <a href="{% url 'league_update' league.pk %}" class="btn xbox-btn-outline btn-sm">
+                <i class="bi bi-pencil-fill me-2"></i>Edit League
+              </a>
+              <a href="{% url 'record_match' league.pk %}" class="btn xbox-btn-outline btn-sm">
+                <i class="bi bi-plus-circle me-2"></i>Record Match
+              </a>
+              <a href="{% url 'league_delete' league.pk %}" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash-fill me-2"></i>Delete
+              </a>
+              {% endif %}
+            {% else %}
+              <a href="{% url 'login' %}" class="btn xbox-btn-primary btn-sm">
+                Sign in to Register
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Participants -->
+    <div class="col-lg-6">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h5 class="xbox-section-title mb-3">
+            <i class="bi bi-people-fill xbox-green me-2"></i>
+            Participants ({{ registrations|length }})
+          </h5>
+          {% if registrations %}
+          <ul class="list-unstyled mb-0">
+            {% for reg in registrations %}
+            <li class="xbox-participant-item">
+              <i class="bi bi-person-circle xbox-green me-2"></i>
+              <a href="{% url 'public_profile' reg.player.username %}" class="xbox-link">
+                {% if reg.player.profile %}
+                  {{ reg.player.profile.gamertag }}
+                {% else %}
+                  {{ reg.player.username }}
+                {% endif %}
+              </a>
+              <small class="text-muted ms-auto">{{ reg.registered_at|date:"d M" }}</small>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="text-muted mb-0">No participants yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Matches -->
+    <div class="col-lg-6">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h5 class="xbox-section-title mb-3">
+            <i class="bi bi-controller xbox-green me-2"></i>
+            Matches ({{ matches|length }})
+          </h5>
+          {% if matches %}
+          {% for match in matches %}
+          <div class="xbox-match-row">
+            <div class="xbox-match-player
+              {% if match.winner == match.player_one %}xbox-match-winner{% endif %}">
+              {{ match.player_one.username }}
+            </div>
+            <div class="xbox-match-score">
+              {{ match.score_p1 }} — {{ match.score_p2 }}
+            </div>
+            <div class="xbox-match-player text-end
+              {% if match.winner == match.player_two %}xbox-match-winner{% endif %}">
+              {{ match.player_two.username }}
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <p class="text-muted mb-0">No matches recorded yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules -->
+    {% if league.rules %}
+    <div class="col-12">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h5 class="xbox-section-title mb-3">
+            <i class="bi bi-file-text-fill xbox-green me-2"></i>Rules & Format
+          </h5>
+          <div class="xbox-rules-text">{{ league.rules|linebreaks }}</div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

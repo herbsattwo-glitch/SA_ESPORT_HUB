@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h2 class="xbox-section-title mb-4">
+            <i class="bi bi-controller xbox-green me-2"></i>
+            {{ action }} Player Profile
+          </h2>
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="xbox-label">Primary Game</label>
+                {{ form.primary_game }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Skill Tier</label>
+                {{ form.skill_tier }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Ranking Points</label>
+                {{ form.ranking_points }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Wins</label>
+                {{ form.wins }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Losses</label>
+                {{ form.losses }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Draws</label>
+                {{ form.draws }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Tournament Wins</label>
+                {{ form.tournament_wins }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Highlights URL</label>
+                {{ form.highlights_url }}
+              </div>
+              <div class="col-md-6 d-flex align-items-center gap-2">
+                {{ form.is_available_for_scouting }}
+                <label class="xbox-label mb-0">Available for Scouting</label>
+              </div>
+              <div class="col-md-6 d-flex align-items-center gap-2">
+                {{ form.looking_for_team }}
+                <label class="xbox-label mb-0">Looking for Team (LFT)</label>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-3">
+              <button type="submit" class="btn xbox-btn-primary">
+                <i class="bi bi-save-fill me-2"></i>{{ action }} Profile
+              </button>
+              <a href="{% url 'player_list' %}" class="btn xbox-btn-outline">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+
+          <h2 class="xbox-section-title mb-1">
+            <i class="bi bi-controller xbox-green me-2"></i>Record Match
+          </h2>
+          <p class="text-muted mb-4">
+            League: <strong class="text-white">{{ league.name }}</strong>
+          </p>
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="row g-3">
+
+              <!-- Player selection -->
+              <div class="col-md-6">
+                <label class="xbox-label">
+                  <i class="bi bi-person-fill me-1"></i>Player One
+                </label>
+                <select name="player_one" class="form-select xbox-input" required>
+                  <option value="">Select Player</option>
+                  {% for reg in league.registrations.all %}
+                    {% if reg.status == 'approved' %}
+                    <option value="{{ reg.player.pk }}">
+                      {% if reg.player.profile %}
+                        {{ reg.player.profile.gamertag }}
+                      {% else %}
+                        {{ reg.player.username }}
+                      {% endif %}
+                    </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="xbox-label">
+                  <i class="bi bi-person-fill me-1"></i>Player Two
+                </label>
+                <select name="player_two" class="form-select xbox-input" required>
+                  <option value="">Select Player</option>
+                  {% for reg in league.registrations.all %}
+                    {% if reg.status == 'approved' %}
+                    <option value="{{ reg.player.pk }}">
+                      {% if reg.player.profile %}
+                        {{ reg.player.profile.gamertag }}
+                      {% else %}
+                        {{ reg.player.username }}
+                      {% endif %}
+                    </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Scores -->
+              <div class="col-md-6">
+                <label class="xbox-label">
+                  <i class="bi bi-hash me-1"></i>Score — Player One
+                </label>
+                <input type="number" name="score_p1" value="0" min="0"
+                       class="form-control xbox-input" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="xbox-label">
+                  <i class="bi bi-hash me-1"></i>Score — Player Two
+                </label>
+                <input type="number" name="score_p2" value="0" min="0"
+                       class="form-control xbox-input" required>
+              </div>
+
+              <!-- Round -->
+              <div class="col-md-6">
+                <label class="xbox-label">Round Number</label>
+                <input type="number" name="round_number" value="1" min="1"
+                       class="form-control xbox-input">
+              </div>
+
+              <!-- Winner -->
+              <div class="col-md-6">
+                <label class="xbox-label">Winner</label>
+                <select name="winner" class="form-select xbox-input">
+                  <option value="">Select Winner</option>
+                  {% for reg in league.registrations.all %}
+                    {% if reg.status == 'approved' %}
+                    <option value="{{ reg.player.pk }}">
+                      {% if reg.player.profile %}
+                        {{ reg.player.profile.gamertag }}
+                      {% else %}
+                        {{ reg.player.username }}
+                      {% endif %}
+                    </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Notes -->
+              <div class="col-12">
+                <label class="xbox-label">Match Notes (optional)</label>
+                <textarea name="notes" rows="3"
+                          class="form-control xbox-input"
+                          placeholder="Any notes about this match..."></textarea>
+              </div>
+
+              <!-- Completed -->
+              <div class="col-12 d-flex align-items-center gap-2">
+                <input type="checkbox" name="is_completed" id="is_completed"
+                       class="form-check-input xbox-check" checked>
+                <label for="is_completed" class="xbox-label mb-0">
+                  Mark as completed
+                </label>
+              </div>
+
+            </div>
+
+            <div class="mt-4 d-flex gap-3">
+              <button type="submit" class="btn xbox-btn-primary">
+                <i class="bi bi-save-fill me-2"></i>Save Match
+              </button>
+              <a href="{% url 'league_detail' league.pk %}"
+                 class="btn xbox-btn-outline">
+                Cancel
+              </a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

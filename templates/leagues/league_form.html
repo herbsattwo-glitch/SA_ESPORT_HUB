@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="xbox-card">
+        <div class="xbox-card-body">
+          <h2 class="xbox-section-title mb-4">
+            <i class="bi bi-trophy-fill xbox-green me-2"></i>
+            {{ action }} League
+          </h2>
+
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label class="xbox-label">League Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                  <div class="xbox-field-error">{{ form.name.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Game</label>
+                {{ form.game }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Description</label>
+                {{ form.description }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Format</label>
+                {{ form.format }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Status</label>
+                {{ form.status }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Max Participants</label>
+                {{ form.max_participants }}
+              </div>
+              <div class="col-md-6">
+                <label class="xbox-label">Prize Pool (ZAR)</label>
+                {{ form.prize_pool }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Start Date</label>
+                {{ form.start_date }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">End Date</label>
+                {{ form.end_date }}
+              </div>
+              <div class="col-md-4">
+                <label class="xbox-label">Registration Deadline</label>
+                {{ form.registration_deadline }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">League Banner</label>
+                {{ form.banner }}
+              </div>
+              <div class="col-12">
+                <label class="xbox-label">Rules</label>
+                {{ form.rules }}
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-3">
+              <button type="submit" class="btn xbox-btn-primary">
+                <i class="bi bi-save-fill me-2"></i>{{ action }} League
+              </button>
+              <a href="{% url 'league_list' %}" class="btn xbox-btn-outline">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

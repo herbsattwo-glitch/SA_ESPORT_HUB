@@ -1,0 +1,1324 @@
+/* ════════════════════════════════════════════════
+   SA ESPORTS HUB — PREMIUM XBOX THEME
+   Glassmorphic · Animated · Modern
+════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --xbox-green:       #107C10;
+  --xbox-green-light: #13A10E;
+  --xbox-green-glow:  rgba(16, 124, 16, 0.5);
+  --xbox-black:       #050505;
+  --xbox-dark:        #0F0F0F;
+  --xbox-surface:     #181818;
+  --xbox-elevated:    #1F1F1F;
+  --xbox-border:      #2A2A2A;
+  --xbox-text:        #FFFFFF;
+  --xbox-muted:       #8B8B8B;
+  --xbox-dim:         #5A5A5A;
+  --xbox-danger:      #FF3D3D;
+  --xbox-warning:     #FFB020;
+  --xbox-info:        #00B7FF;
+  --xbox-gold:        #FFD700;
+  --xbox-silver:      #C0C0C0;
+  --xbox-bronze:      #CD7F32;
+}
+
+/* ════════════════════════════════════════════════
+   BASE
+════════════════════════════════════════════════ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--xbox-black);
+  color: var(--xbox-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.xbox-body {
+  display: flex;
+  flex-direction: column;
+}
+
+main.xbox-main {
+  flex: 1;
+  position: relative;
+  z-index: 10;
+  animation: pageEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+a { text-decoration: none; color: inherit; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--xbox-green), transparent);
+  border-radius: 4px;
+}
+
+.xbox-green { color: var(--xbox-green) !important; }
+
+/* ════════════════════════════════════════════════
+   ANIMATED BACKGROUND LAYERS
+════════════════════════════════════════════════ */
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animated mesh gradient */
+.bg-mesh {
+  background:
+    radial-gradient(at 20% 20%, rgba(16, 124, 16, 0.18) 0px, transparent 50%),
+    radial-gradient(at 80% 0%,  rgba(16, 124, 16, 0.12) 0px, transparent 50%),
+    radial-gradient(at 0% 50%,  rgba(19, 161, 14, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(16, 124, 16, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(16, 124, 16, 0.10) 0px, transparent 50%);
+  animation: meshShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshShift {
+  0% {
+    background:
+      radial-gradient(at 20% 20%, rgba(16, 124, 16, 0.18) 0px, transparent 50%),
+      radial-gradient(at 80% 0%,  rgba(16, 124, 16, 0.12) 0px, transparent 50%),
+      radial-gradient(at 0% 50%,  rgba(19, 161, 14, 0.08) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, rgba(16, 124, 16, 0.15) 0px, transparent 50%);
+  }
+  100% {
+    background:
+      radial-gradient(at 60% 30%, rgba(16, 124, 16, 0.22) 0px, transparent 50%),
+      radial-gradient(at 30% 0%,  rgba(16, 124, 16, 0.15) 0px, transparent 50%),
+      radial-gradient(at 90% 60%, rgba(19, 161, 14, 0.12) 0px, transparent 50%),
+      radial-gradient(at 20% 80%, rgba(16, 124, 16, 0.18) 0px, transparent 50%);
+  }
+}
+
+/* Grid overlay */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(16, 124, 16, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 124, 16, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridDrift 30s linear infinite;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+@keyframes gridDrift {
+  to { background-position: 80px 80px; }
+}
+
+/* Floating orbs */
+.bg-orbs { overflow: hidden; }
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+.orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(16, 124, 16, 0.4), transparent 70%);
+  top: -150px; left: -150px;
+  animation: orbDrift1 25s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(19, 161, 14, 0.3), transparent 70%);
+  bottom: -100px; right: -100px;
+  animation: orbDrift2 30s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(16, 124, 16, 0.25), transparent 70%);
+  top: 50%; left: 50%;
+  animation: orbDrift3 35s ease-in-out infinite;
+}
+
+@keyframes orbDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%        { transform: translate(200px, 150px) scale(1.2); }
+  66%        { transform: translate(100px, 300px) scale(0.9); }
+}
+
+@keyframes orbDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%        { transform: translate(-200px, -150px) scale(1.3); }
+}
+
+@keyframes orbDrift3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  25%        { transform: translate(-30%, -70%) scale(1.1); }
+  50%        { transform: translate(-70%, -50%) scale(0.9); }
+  75%        { transform: translate(-50%, -30%) scale(1.2); }
+}
+
+/* Particles canvas */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Scan line */
+.bg-scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(16, 124, 16, 0.08) 50%,
+    transparent
+  );
+  z-index: 2;
+  pointer-events: none;
+  animation: scanSweep 8s ease-in-out infinite;
+}
+
+@keyframes scanSweep {
+  0%   { transform: translateY(-100px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* ════════════════════════════════════════════════
+   NAVBAR — GLASSMORPHIC
+════════════════════════════════════════════════ */
+
+.xbox-navbar {
+  background: rgba(15, 15, 15, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(16, 124, 16, 0.15) !important;
+  padding: 0.85rem 0 !important;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  position: relative;
+}
+
+.xbox-navbar::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--xbox-green) 50%,
+    transparent
+  );
+  animation: navBorderSlide 6s ease-in-out infinite;
+}
+
+@keyframes navBorderSlide {
+  0%, 100% { opacity: 0.3; }
+  50%        { opacity: 1; }
+}
+
+.xbox-navbar .container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.xbox-brand {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.xbox-logo-svg {
+  filter: drop-shadow(0 0 8px rgba(16, 124, 16, 0.6));
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(16, 124, 16, 0.4)); }
+  50%        { filter: drop-shadow(0 0 18px rgba(16, 124, 16, 0.9)); }
+}
+
+.navbar-collapse {
+  align-items: center !important;
+}
+
+.navbar-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin-bottom: 0 !important;
+}
+
+.xbox-nav-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 40px !important;
+  padding: 0 1.1rem !important;
+  color: var(--xbox-muted) !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.xbox-nav-link:hover {
+  background: rgba(16, 124, 16, 0.08) !important;
+  color: var(--xbox-text) !important;
+  border-color: rgba(16, 124, 16, 0.2) !important;
+}
+
+.xbox-nav-link.active {
+  background: rgba(16, 124, 16, 0.15) !important;
+  color: var(--xbox-green) !important;
+  border-color: rgba(16, 124, 16, 0.4) !important;
+  box-shadow: 0 0 12px rgba(16, 124, 16, 0.2);
+}
+
+.xbox-gamertag {
+  color: var(--xbox-green) !important;
+  font-weight: 700 !important;
+}
+
+.xbox-toggler { border-color: var(--xbox-green) !important; }
+
+/* Dropdown */
+.xbox-dropdown {
+  background: rgba(15, 15, 15, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--xbox-border) !important;
+  border-radius: 12px !important;
+  min-width: 220px !important;
+  padding: 6px !important;
+  margin-top: 8px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.xbox-dropdown-item {
+  color: var(--xbox-text) !important;
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+  transition: all 0.15s !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+}
+
+.xbox-dropdown-item:hover {
+  background: rgba(16, 124, 16, 0.15) !important;
+  color: var(--xbox-green) !important;
+}
+
+.xbox-divider {
+  border-color: var(--xbox-border) !important;
+  margin: 4px 6px !important;
+}
+
+/* ════════════════════════════════════════════════
+   BUTTONS
+════════════════════════════════════════════════ */
+
+.xbox-btn-primary,
+.btn.xbox-btn-primary {
+  background: linear-gradient(135deg, var(--xbox-green), var(--xbox-green-light)) !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.3px !important;
+  padding: 9px 18px !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 14px rgba(16, 124, 16, 0.35) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-decoration: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.xbox-btn-primary:hover,
+.btn.xbox-btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(16, 124, 16, 0.5) !important;
+  color: #fff !important;
+}
+
+.xbox-btn-primary.btn-lg,
+.btn.xbox-btn-primary.btn-lg {
+  padding: 12px 26px !important;
+  font-size: 0.95rem !important;
+  border-radius: 12px !important;
+}
+
+.xbox-btn-primary.btn-sm,
+.btn.xbox-btn-primary.btn-sm {
+  padding: 7px 14px !important;
+  font-size: 0.78rem !important;
+  height: 40px !important;
+}
+
+.xbox-btn-outline,
+.btn.xbox-btn-outline {
+  background: rgba(24, 24, 24, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1.5px solid var(--xbox-border) !important;
+  color: var(--xbox-text) !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  padding: 9px 18px !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s !important;
+  text-decoration: none !important;
+}
+
+.xbox-btn-outline:hover,
+.btn.xbox-btn-outline:hover {
+  background: rgba(16, 124, 16, 0.12) !important;
+  border-color: var(--xbox-green) !important;
+  color: var(--xbox-green) !important;
+  transform: translateY(-1px) !important;
+}
+
+.xbox-btn-outline.btn-lg {
+  padding: 12px 26px !important;
+  font-size: 0.95rem !important;
+  border-radius: 12px !important;
+}
+
+/* ════════════════════════════════════════════════
+   ALERTS
+════════════════════════════════════════════════ */
+
+.xbox-alert-success,
+.xbox-alert-error,
+.xbox-alert-danger,
+.xbox-alert-warning,
+.xbox-alert-info {
+  background: rgba(15, 15, 15, 0.7) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 12px !important;
+  padding: 14px 18px !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.xbox-alert-success { border: 1px solid var(--xbox-green) !important; color: #4caf50 !important; }
+.xbox-alert-error, .xbox-alert-danger { border: 1px solid var(--xbox-danger) !important; color: #ef5350 !important; }
+.xbox-alert-warning { border: 1px solid var(--xbox-warning) !important; color: #ffa726 !important; }
+.xbox-alert-info { border: 1px solid var(--xbox-info) !important; color: #42a5f5 !important; }
+
+/* ════════════════════════════════════════════════
+   CARDS — GLASSMORPHIC
+════════════════════════════════════════════════ */
+
+.xbox-card {
+  background: rgba(15, 15, 15, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--xbox-border) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.xbox-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--xbox-green), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.xbox-card:hover {
+  border-color: var(--xbox-green) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(16, 124, 16, 0.2);
+}
+
+.xbox-card:hover::before { opacity: 1; }
+
+.xbox-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.xbox-card-placeholder {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, rgba(24, 24, 24, 0.8), rgba(16, 124, 16, 0.15));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--xbox-green);
+  font-size: 2.8rem;
+  gap: 0.5rem;
+}
+
+.xbox-card-placeholder span {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.xbox-card-body {
+  padding: 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.xbox-card-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.xbox-card-text {
+  color: var(--xbox-muted);
+  font-size: 0.88rem;
+  flex: 1;
+  line-height: 1.55;
+}
+
+.xbox-card-footer {
+  padding: 1rem 1.4rem;
+  border-top: 1px solid var(--xbox-border);
+}
+
+/* ════════════════════════════════════════════════
+   BADGES & CHIPS
+════════════════════════════════════════════════ */
+
+.xbox-game-chip {
+  display: inline-block;
+  background: rgba(16, 124, 16, 0.15);
+  color: var(--xbox-green);
+  border: 1px solid rgba(16, 124, 16, 0.4);
+  border-radius: 20px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.xbox-game-chip-sm {
+  display: inline-block;
+  background: rgba(16, 124, 16, 0.12);
+  color: var(--xbox-green);
+  border-radius: 5px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.xbox-game-chip-lg {
+  display: inline-block;
+  background: rgba(16, 124, 16, 0.15);
+  color: var(--xbox-green);
+  border: 1px solid rgba(16, 124, 16, 0.4);
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.xbox-game-badge {
+  display: inline-block;
+  background: rgba(24, 24, 24, 0.6);
+  color: var(--xbox-muted);
+  border-radius: 5px;
+  padding: 0.18rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.xbox-game-badge-lg {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(24, 24, 24, 0.6);
+  backdrop-filter: blur(10px);
+  color: var(--xbox-text);
+  border: 1px solid var(--xbox-border);
+  border-radius: 10px;
+  padding: 0.45rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.xbox-game-badge-lg:hover {
+  border-color: var(--xbox-green);
+  color: var(--xbox-green);
+  transform: translateY(-2px);
+}
+
+/* Status badges */
+.xbox-status-badge {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.xbox-status-active    { background: rgba(16, 124, 16, 0.2); color: #4caf50; border: 1px solid #4caf50; }
+.xbox-status-upcoming  { background: rgba(0, 183, 255, 0.15); color: #42a5f5; border: 1px solid #42a5f5; }
+.xbox-status-completed { background: rgba(139, 139, 139, 0.15); color: #aaa; border: 1px solid #aaa; }
+.xbox-status-cancelled { background: rgba(255, 61, 61, 0.15); color: #ef5350; border: 1px solid #ef5350; }
+
+.xbox-status-active {
+  animation: activeBlink 2.5s ease-in-out infinite;
+}
+
+@keyframes activeBlink {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+  50%        { box-shadow: 0 0 12px 2px rgba(76, 175, 80, 0.5); }
+}
+
+.xbox-status-badge-lg {
+  display: inline-block;
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.xbox-format-badge {
+  display: inline-block;
+  background: rgba(255, 176, 32, 0.15);
+  color: var(--xbox-warning);
+  border: 1px solid var(--xbox-warning);
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* Skill tiers */
+.xbox-tier-bronze      { color: var(--xbox-bronze); font-weight: 700; }
+.xbox-tier-silver      { color: var(--xbox-silver); font-weight: 700; }
+.xbox-tier-gold        { color: var(--xbox-gold); font-weight: 700; }
+.xbox-tier-platinum    { color: #00BFFF; font-weight: 700; }
+.xbox-tier-diamond     { color: #B9F2FF; font-weight: 700; }
+.xbox-tier-master      { color: #FF6B6B; font-weight: 700; }
+.xbox-tier-grandmaster {
+  color: var(--xbox-gold);
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+}
+
+.xbox-tier-badge-lg {
+  display: inline-block;
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid currentColor;
+}
+
+.xbox-available-badge {
+  display: inline-block;
+  background: rgba(16, 124, 16, 0.15);
+  color: var(--xbox-green);
+  border: 1px solid var(--xbox-green);
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.xbox-lfg-badge {
+  display: inline-block;
+  background: rgba(0, 183, 255, 0.15);
+  color: var(--xbox-info);
+  border: 1px solid var(--xbox-info);
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ════════════════════════════════════════════════
+   FORMS
+════════════════════════════════════════════════ */
+
+.xbox-input,
+.form-control.xbox-input,
+.form-select.xbox-input,
+.form-control,
+.form-select {
+  background: rgba(15, 15, 15, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1.5px solid var(--xbox-border) !important;
+  color: var(--xbox-text) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-size: 0.9rem !important;
+  font-family: inherit !important;
+  transition: all 0.2s !important;
+}
+
+.xbox-input:focus,
+.form-control.xbox-input:focus,
+.form-select.xbox-input:focus,
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--xbox-green) !important;
+  box-shadow: 0 0 0 3px rgba(16, 124, 16, 0.2),
+              0 0 24px rgba(16, 124, 16, 0.15) !important;
+  outline: none !important;
+  background: rgba(24, 24, 24, 0.8) !important;
+}
+
+.xbox-input::placeholder { color: var(--xbox-dim) !important; }
+
+.xbox-input option,
+.form-select option {
+  background-color: var(--xbox-elevated) !important;
+  color: var(--xbox-text) !important;
+}
+
+.xbox-label {
+  color: var(--xbox-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  display: block;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.xbox-field-error {
+  color: #ef5350;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.xbox-form-error {
+  background: rgba(255, 61, 61, 0.12);
+  border: 1px solid var(--xbox-danger);
+  color: #ef5350;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.form-check-input {
+  background-color: var(--xbox-elevated) !important;
+  border: 1.5px solid var(--xbox-border) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--xbox-green) !important;
+  border-color: var(--xbox-green) !important;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 3px rgba(16, 124, 16, 0.25) !important;
+}
+
+/* Filter checkbox wrapper */
+.xbox-filter-checkbox-wrapper {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  height: 44px !important;
+  padding: 0 14px !important;
+  background: rgba(15, 15, 15, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1.5px solid var(--xbox-border) !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+
+.xbox-filter-checkbox-wrapper:hover {
+  border-color: var(--xbox-green) !important;
+}
+
+.xbox-filter-checkbox-wrapper input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  accent-color: var(--xbox-green) !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+}
+
+.xbox-filter-checkbox-wrapper label,
+.xbox-filter-checkbox-wrapper span {
+  color: var(--xbox-text) !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+}
+
+.xbox-btn-search {
+  height: 44px !important;
+  width: 44px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 10px !important;
+}
+
+.xbox-filter-row {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.xbox-filter-item { flex: 1; min-width: 180px; }
+
+/* ════════════════════════════════════════════════
+   AUTH PAGES
+════════════════════════════════════════════════ */
+
+.xbox-auth-page {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.xbox-auth-card {
+  background: rgba(15, 15, 15, 0.7) !important;
+  backdrop-filter: blur(30px) saturate(180%) !important;
+  border: 1px solid rgba(16, 124, 16, 0.25) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(16, 124, 16, 0.15);
+}
+
+.xbox-auth-header {
+  background: linear-gradient(135deg, rgba(16, 124, 16, 0.18), transparent);
+  padding: 40px 30px 32px;
+  text-align: center;
+  border-bottom: 1px solid rgba(16, 124, 16, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.xbox-auth-header::before {
+  content: '';
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(16, 124, 16, 0.3), transparent 70%);
+  top: -125px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(40px);
+  animation: authGlow 4s ease-in-out infinite;
+}
+
+@keyframes authGlow {
+  0%, 100% { opacity: 0.6; }
+  50%        { opacity: 1; }
+}
+
+.xbox-auth-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.xbox-auth-subtitle {
+  color: var(--xbox-muted);
+  font-size: 0.92rem;
+  position: relative;
+  z-index: 1;
+}
+
+.xbox-auth-body { padding: 32px 36px 36px; }
+
+.xbox-link {
+  color: var(--xbox-green);
+  font-weight: 600;
+  transition: color 0.15s;
+}
+
+.xbox-link:hover {
+  color: var(--xbox-green-light);
+  text-decoration: underline;
+}
+
+/* ════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════ */
+
+.xbox-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.min-vh-60 { min-height: 65vh; }
+
+.xbox-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(16, 124, 16, 0.15);
+  color: var(--xbox-green);
+  border: 1px solid var(--xbox-green);
+  border-radius: 20px;
+  padding: 0.35rem 1.1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.xbox-hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.xbox-hero-title .xbox-green {
+  background: linear-gradient(135deg, var(--xbox-green), var(--xbox-green-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.xbox-hero-subtitle {
+  color: var(--xbox-muted);
+  font-size: 1.1rem;
+  max-width: 580px;
+  line-height: 1.65;
+}
+
+.xbox-hero-graphic { animation: float 4s ease-in-out infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%        { transform: translateY(-14px); }
+}
+
+/* ════════════════════════════════════════════════
+   STATS BAR
+════════════════════════════════════════════════ */
+
+.xbox-stats-bar {
+  background: rgba(15, 15, 15, 0.5);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--xbox-border);
+  border-bottom: 1px solid var(--xbox-border);
+}
+
+.xbox-stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  font-size: 0.92rem;
+}
+
+.xbox-stat-num {
+  background: rgba(16, 124, 16, 0.2);
+  color: var(--xbox-green);
+  padding: 0.18rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: 1px solid rgba(16, 124, 16, 0.3);
+}
+
+/* ════════════════════════════════════════════════
+   SECTIONS
+════════════════════════════════════════════════ */
+
+.xbox-section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.xbox-subsection-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--xbox-muted);
+  border-bottom: 1px solid var(--xbox-border);
+  padding-bottom: 0.6rem;
+}
+
+.xbox-page-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.xbox-dark-section {
+  background: rgba(15, 15, 15, 0.4);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--xbox-border);
+  border-bottom: 1px solid var(--xbox-border);
+}
+
+/* ════════════════════════════════════════════════
+   PLAYER CARD — FINAL CLEAN LAYOUT
+════════════════════════════════════════════════ */
+
+.xbox-player-card {
+  background: rgba(15, 15, 15, 0.6) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--xbox-border) !important;
+  border-radius: 14px !important;
+  padding: 1rem 1.25rem !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  min-height: 88px;
+  width: 100%;
+}
+
+.xbox-player-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--xbox-green);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s;
+}
+
+.xbox-player-card:hover {
+  border-color: var(--xbox-green) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 124, 16, 0.15);
+}
+
+.xbox-player-card:hover::before { transform: scaleY(1); }
+
+/* Rank badge column */
+.xbox-player-card .xbox-rank-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--xbox-muted);
+  min-width: 36px;
+  text-align: center;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Player info column */
+.xbox-player-card .xbox-player-info {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.xbox-player-card .xbox-player-avatar {
+  font-size: 2rem;
+  color: var(--xbox-muted);
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.xbox-player-card .xbox-player-avatar img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* The text wrapper inside player-info */
+.xbox-player-card .xbox-player-info > div:last-child {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.xbox-player-card .xbox-player-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: 'Rajdhani', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.3px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.xbox-player-card .xbox-player-meta {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0.5rem !important;
+  align-items: center !important;
+  margin-top: 0.35rem !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+
+/* Stats column */
+.xbox-player-card .xbox-player-stats {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  flex-shrink: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+.xbox-player-card .xbox-mini-stat {
+  text-align: center;
+  min-width: 38px;
+  display: flex;
+  flex-direction: column;
+}
+
+.xbox-player-card .xbox-mini-stat-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  display: block;
+  line-height: 1;
+}
+
+.xbox-player-card .xbox-mini-stat-lbl {
+  font-size: 0.62rem;
+  color: var(--xbox-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 3px;
+  display: block;
+}
+
+.xbox-player-card .xbox-player-stats .btn {
+  padding: 6px 11px !important;
+  font-size: 0.78rem !important;
+  min-width: 38px;
+  height: 34px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Game chip never wraps */
+.xbox-player-card .xbox-game-chip-sm {
+  white-space: nowrap !important;
+  font-size: 0.65rem !important;
+  padding: 0.15rem 0.55rem !important;
+  display: inline-block !important;
+  line-height: 1.4 !important;
+  border-radius: 5px !important;
+  background: rgba(16, 124, 16, 0.15) !important;
+  color: var(--xbox-green) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  flex-shrink: 0;
+}
+
+/* Tier text never wraps */
+.xbox-player-card .xbox-player-meta [class*="xbox-tier-"] {
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Only on very small screens stack vertically */
+@media (max-width: 480px) {
+  .xbox-player-card {
+    flex-wrap: wrap !important;
+  }
+
+  .xbox-player-card .xbox-player-stats {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--xbox-border);
+    margin-top: 0.25rem;
+  }
+}
+
+/* ════════════════════════════════════════════════
+   PROFILE
+════════════════════════════════════════════════ */
+
+.xbox-profile-header {
+  background: linear-gradient(135deg, rgba(15, 15, 15, 0.7), rgba(24, 24, 24, 0.7));
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--xbox-border);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.xbox-profile-gamertag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.xbox-avatar-lg, .xbox-avatar-xl {
+  background: var(--xbox-elevated);
+  border: 2px solid var(--xbox-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--xbox-green);
+  overflow: hidden;
+  position: relative;
+}
+
+.xbox-avatar-lg::after,
+.xbox-avatar-xl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 12px rgba(16, 124, 16, 0.6);
+  pointer-events: none;
+}
+
+.xbox-avatar-lg {
+  width: 72px;
+  height: 72px;
+  font-size: 2rem;
+}
+
+.xbox-avatar-xl {
+  width: 108px;
+  height: 108px;
+  font-size: 3rem;
+  box-shadow: 0 0 24px var(--xbox-green-glow);
+}
+
+.xbox-avatar-lg img, 
+.xbox-avatar-xl img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Profile Details Layout */
+.xbox-profile-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.xbox-profile-bio {
+  color: var(--xbox-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+  padding-left: 12px;
+  border-left: 2px solid var(--xbox-border);
+}

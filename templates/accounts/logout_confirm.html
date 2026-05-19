@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="xbox-auth-card">
+        <div class="xbox-auth-header">
+          <svg width="48" height="48" viewBox="0 0 100 100" class="mb-3">
+            <circle cx="50" cy="50" r="48" fill="#107C10"/>
+            <text x="50" y="62" font-size="50" font-weight="bold"
+                  text-anchor="middle" fill="#ffffff" font-family="Arial">X</text>
+          </svg>
+          <h2 class="xbox-auth-title">Sign Out</h2>
+          <p class="xbox-auth-subtitle">Are you sure you want to sign out?</p>
+        </div>
+
+        <div class="xbox-auth-body text-center">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center gap-3">
+              <button type="submit" class="btn xbox-btn-primary">
+                <i class="bi bi-box-arrow-right me-2"></i>Yes, Sign Out
+              </button>
+              <a href="{% url 'home' %}" class="btn xbox-btn-outline">
+                <i class="bi bi-x-circle me-2"></i>Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
