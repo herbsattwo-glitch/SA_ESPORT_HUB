@@ -17,7 +17,7 @@ The guide covers everything from browsing as a guest visitor through creating yo
 
 ## Getting Started
 
-When you first visit SA Esports Hub at https://sa-esports-hub.onrender.com, you'll arrive at the home page which serves as your entry point to everything the platform offers. The page greets you with a striking hero section featuring an animated graphic and the message "South Africa's Esports Hub" prominently displayed. Below the hero you'll see a stats bar showing how many leagues are active, how many players are ranked, how many provinces are represented, and how many games are supported.
+When you first visit SA Esports Hub at  https://sa-esport-hub.onrender.com , you'll arrive at the home page which serves as your entry point to everything the platform offers. The page greets you with a striking hero section featuring an animated graphic and the message "South Africa's Esports Hub" prominently displayed. Below the hero you'll see a stats bar showing how many leagues are active, how many players are ranked, how many provinces are represented, and how many games are supported.
 
 Scrolling down reveals featured leagues showing the latest tournaments that gamers can join, followed by the top ranked players section displaying the best competitors in the country with gold, silver, and bronze trophy icons for the top three positions. Further down you'll find six feature cards explaining what the platform does — league management, national rankings, scout reports, province coverage, looking for team features, and verified profiles. If you're not logged in, a call-to-action section at the bottom invites you to join and start competing.
 

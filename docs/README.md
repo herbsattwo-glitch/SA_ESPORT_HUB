@@ -86,7 +86,8 @@ major titles played competitively in the country.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/sa-esports-hub.git
+git clone https://github.com/herbsattwo-glitch/SA_ESPORT_HUB.git
+
 cd sa-esports-hub
 
 # 2. Create and activate a virtual environment
