@@ -24,8 +24,14 @@ At the highest level, the system works like this. A user opens their web browser
 
 Visual System Walkthrough
 
+ADMINSIDE
 
-[Admin Dashboard](../images/admin_side.jpg)  
+[Admin Dashboard](../images/admin_side.jpg) 
+
+
+
+USERSIDE
+
 ![User Interface](../images/user_side.jpg)
 
 
